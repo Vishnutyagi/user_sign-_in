@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>USER SIGN UP/IN</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<meta name="google-signin-client_id" content="1009420863766-ibfj8c8mgoh5ibik9mqrou3ievj7bg20.apps.googleusercontent.com">
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			$( "#form1" ).submit(function(event) {
+				event.preventDefault();
+
+				$.ajax({
+					type: 'POST',
+					url: '/',
+					data: $('#form1').serialize(),
+					dataType: "json",
+					success: function(response){
+						//alert("a");
+						//console.log(response.Success);
+						$('#form1')[0].reset();
+
+						document.getElementById("check").innerHTML=response.Success;
+         					//ADD THIS CODE
+         					setTimeout(function(){
+         						document.getElementById("check").innerHTML="";
+         					},3000);
+         					if (response.Success=="You are regestered,You can login now.") {
+         						document.getElementById("aa").click();
+         					};
+         				},
+         				error: function() {
+         				}
+         			})
+			});
+		});
+	</script>
+</head>
+<body>
+
+	<div class="col-md-4 col-md-offset-4" style=" margin-top: 150px; margin-bottom: 200px; margin-left: 510px; margin-right: 200px;">
+		<div>
+			<p style="color: white;">SIGN UP
+			</p>
+		</div>
+		<div class="form-group">
+			<form id="form1" method="post">
+				<input type="email" name="email" placeholder="E-mail" required="" class="form-control"><br/>
+				<input type="text" name="username" placeholder="Username" required="" class="form-control"><br/>
+				<input type="password" name="password" placeholder="Password" required="" class="form-control"><br/>
+				<input type="submit" value="Register" class="btn btn-success">
+			</form>
+		</div>
+		
+		<div class="mssg bg-danger">
+			<span id="check"></span>
+		</div>
+		<div style="color: rgb(255, 255, 255);">
+			<span >USER ALREADY EXIST! <a href="/login">LOG IN</a> OR</span>
+		</div>
+		<div id="LangTable"><a href="/login" id="aa"></a>
+		</div>
+		<div style="margin-left: 180px; margin-top: 20px;">
+
+		
+		<div class="g-signin2" data-onsuccess="onSignIn"></div>
+		</div>	
+
+	</div>
+</body>
+</html>
